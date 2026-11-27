@@ -1,0 +1,96 @@
+:root {
+  color-scheme: dark;
+  --gold: #f4d698;
+  --gold-soft: #9a825b;
+  --ivory: #fff2d7;
+  --page-pad: clamp(24px, 5.4vw, 90px);
+  font: 14px/1.5 system-ui, "Microsoft YaHei", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
+body { background: #08080b; color: var(--ivory); }
+button { cursor: pointer; font: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
+button:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+[hidden] { display: none !important; }
+#stars, .vignette { position: fixed; inset: 0; width: 100%; height: 100%; }
+#stars { touch-action: none; cursor: grab; }
+#stars:active { cursor: grabbing; }
+.vignette { pointer-events: none; background: radial-gradient(ellipse at 58% 47%, transparent 50%, #06060b6c 100%); }
+.topbar { position: fixed; z-index: 2; inset: max(26px, env(safe-area-inset-top)) var(--page-pad) auto; display: flex; justify-content: space-between; align-items: center; pointer-events: none; }
+.topbar button { pointer-events: auto; }
+.brand { display: flex; align-items: center; gap: 10px; color: #e8cf9e; letter-spacing: .17em; font-size: 12px; }
+.brand-star { color: var(--gold); font-size: 22px; line-height: 1; text-shadow: 0 0 15px #ffba5aab; }
+.quiet { border: 1px solid #dcc39644; border-radius: 999px; padding: 8px 15px; background: #171610b8; font-size: 12px; }
+.quiet:hover { background: #493b26cc; }
+.quiet span { font-size: 12px; display: inline-block; margin-right: 3px; color: var(--gold); }
+.intro { position: fixed; left: var(--page-pad); top: 50%; transform: translateY(-55%); z-index: 1; pointer-events: none; transition: opacity .45s ease; }
+.intro > button, .album { pointer-events: auto; }
+.greeting { display: flex; align-items: center; gap: 11px; margin: 0 0 18px; font: 10px/1.3 Georgia, serif; letter-spacing: .32em; color: #d4b783; }
+.greeting::before { content: ""; display: block; height: 1px; width: 23px; background: #ad8659; }
+h1 { margin: 0; font: 400 clamp(31px, 3.65vw, 64px)/1.3 "Songti SC", SimSun, "Noto Serif SC", serif; letter-spacing: .035em; text-shadow: 0 3px 26px #090608; }
+.instruction { margin: 16px 0 24px; color: #d6c7aa; font-size: 12px; text-shadow: 0 1px 8px #000; }
+.gold-button { border: 1px solid #f9deab; color: #272016; background: linear-gradient(135deg, #fff0c5, #cba66a); border-radius: 5px; min-height: 38px; padding: 8px 14px; font-size: 12px; font-weight: 650; box-shadow: 0 4px 20px #c592421f; }
+.gold-button:hover { background: #ffebbc; }
+.gold-button span { margin-right: 3px; }
+.album { display: flex; gap: 8px; width: max-content; max-width: min(29vw, 320px); overflow-x: auto; scrollbar-width: thin; margin: 15px -3px -3px; padding: 3px 3px 6px; }
+.album:empty { display: none; }
+.album button { width: 28px; height: 28px; display: grid; place-items: center; flex: 0 0 auto; padding: 0; overflow: hidden; border: 1px solid #d4b7869c; border-radius: 50%; background: #392d25; }
+.album button:hover { border-color: #fff1c3; box-shadow: 0 0 8px #ecc7789e; }
+.album img { width: 100%; height: 100%; object-fit: cover; }
+.controls { position: fixed; z-index: 2; left: var(--axis, 59%); bottom: max(23px, calc(env(safe-area-inset-bottom) + 12px)); transform: translateX(-50%); text-align: center; white-space: nowrap; pointer-events: none; }
+#scene-hint { display: block; margin-bottom: 8px; font-size: 11px; letter-spacing: .13em; color: #cbb992; text-shadow: 0 2px 6px #000; }
+.mode-switch { display: inline-flex; gap: 3px; border: 1px solid #dbbd8554; padding: 4px; border-radius: 999px; background: #12120fe6; pointer-events: auto; }
+.mode-switch button { background: transparent; border: 1px solid transparent; border-radius: 999px; min-width: 68px; padding: 6px 9px; font-size: 12px; color: #d1c0a5; }
+.mode-switch button:hover { color: #fff1d4; }
+.mode-switch button[aria-pressed=true] { background: #393022; border-color: #d1a76c4d; color: #ffe4a8; }
+.mode-switch span { margin-right: 2px; color: #ddbe82; font: 11px Georgia, serif; }
+#camera-panel { position: fixed; z-index: 3; width: clamp(114px, 16vw, 220px); bottom: max(24px, env(safe-area-inset-bottom)); right: var(--page-pad); border: 1px solid #bda27072; background: #151410; border-radius: 9px; overflow: hidden; }
+#webcam { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; transform: scaleX(-1); background: #0d0d0d; }
+#stop-camera { position: absolute; top: 4px; right: 6px; border: 0; border-radius: 50%; background: #100d0bbd; width: 24px; height: 24px; padding: 0; font-size: 18px; line-height: 1; }
+#camera-status { padding: 5px; margin: 0; text-align: center; font-size: 10px; color: #decba1; }
+.hand-cursor { position: fixed; z-index: 4; pointer-events: none; width: 25px; height: 25px; border: 1px solid #ffe5ab; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 14px #ffd17ca6, inset 0 0 8px #ffd17c65; }
+.hand-cursor:nth-of-type(even) { border-color: #bbebdc; box-shadow: 0 0 14px #9bebdba6, inset 0 0 8px #9bebdb65; }
+.hand-cursor.pinching { background: #ffd38270; }
+.toast { position: fixed; z-index: 5; left: 50%; top: max(70px, calc(env(safe-area-inset-top) + 54px)); transform: translate(-50%, -6px); max-width: calc(100vw - 30px); width: max-content; padding: 7px 13px; background: #19150f; color: #ffdf9e; border: 1px solid #a88758; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; font-size: 12px; }
+.toast.visible { opacity: 1; transform: translate(-50%, 0); }
+dialog { margin: auto; }
+#photo-dialog { border: 0; background: transparent; padding: 15px; color: var(--ivory); overflow: visible; max-width: 96vw; max-height: 94vh; }
+#photo-dialog::backdrop { background: #07060d41; }
+.photo-frame { position: relative; margin: 0; padding: 7px; border: 4px ridge #efd4a1; background: linear-gradient(135deg, #f7e2b5, #77502f 68%, #edd199); box-shadow: 0 0 35px #efb95a43, 0 14px 60px #000b; }
+.photo-frame img { display: block; width: var(--photo-width, 400px); height: var(--photo-height, 400px); object-fit: contain; background: #19130e; }
+.holly { position: absolute; width: 42px; height: 23px; pointer-events: none; background: radial-gradient(circle at 45% 24%, #e27262 1px, #ad3128 3px, #5c1416 6px, transparent 7px), radial-gradient(circle at 64% 45%, #d7443d 2px, #6b1719 5px, transparent 6px), radial-gradient(ellipse at 28% 60%, #748257 2px, #284334 9px, transparent 10px), radial-gradient(ellipse at 77% 25%, #738a55 2px, #294d36 9px, transparent 10px); }
+.holly.top { top: -12px; left: -14px; transform: rotate(-23deg); }
+.holly.bottom { bottom: -11px; right: -14px; transform: rotate(155deg); }
+#close-photo { position: absolute; top: 11px; right: 11px; width: 29px; height: 29px; padding: 0; border: 1px solid #ffe1ac9e; border-radius: 50%; background: #141210c9; color: #fff4db; font-size: 20px; line-height: 1; }
+#camera-help { border: 1px solid #b89b65; border-radius: 16px; padding: 23px; width: min(400px, calc(100vw - 38px)); color: var(--ivory); background: #191611; box-shadow: 0 15px 70px #0009; }
+#camera-help::backdrop { background: #040305a6; }
+#camera-help h2 { font-size: 18px; margin: 0 0 10px; font-weight: 550; }
+#camera-help p { color: #e0c9a7; font-size: 13px; }
+#camera-help .camera-note { color: #bba78a; font-size: 11px; }
+#camera-error:empty { display: none; }
+#camera-error { color: #ffab93 !important; }
+.dialog-actions { display: flex; gap: 9px; justify-content: flex-end; margin-top: 20px; }
+@media (max-width: 675px) and (orientation: portrait) {
+  :root { --page-pad: 20px; }
+  .topbar { top: max(16px, env(safe-area-inset-top)); }
+  .intro { top: max(70px, calc(env(safe-area-inset-top) + 48px)); transform: none; }
+  .greeting { margin-bottom: 7px; font-size: 8px; }
+  h1 { font-size: clamp(25px, 8vw, 38px); line-height: 1.18; }
+  .instruction { margin: 8px 0 10px; font-size: 10px; }
+  .gold-button { min-height: 33px; font-size: 11px; padding: 6px 11px; }
+  .album { max-width: 70vw; margin-top: 7px; gap: 6px; }
+  .album button { width: 22px; height: 22px; }
+  #camera-panel { right: 10px; bottom: calc(92px + env(safe-area-inset-bottom)); width: 106px; }
+  .controls { bottom: max(15px, calc(env(safe-area-inset-bottom) + 8px)); }
+  .mode-switch button { min-width: 0; padding-inline: clamp(6px, 2.35vw, 9px); }
+}
+@media (max-height: 480px) and (orientation: landscape) {
+  .topbar { top: 10px; }
+  .greeting { margin-bottom: 9px; }
+  .instruction { margin: 8px 0 10px; }
+  .controls { bottom: 8px; }
+  #camera-panel { bottom: 64px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; }
+}

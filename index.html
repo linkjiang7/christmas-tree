@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#08080b">
+  <meta name="description" content="转动一棵金色圣诞树，在散开的星光里翻看冬日照片。">
+  <title>星光圣诞树</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="scene.js"></script>
+  <script defer src="gestures.js"></script>
+</head>
+<body data-mode="tree">
+  <canvas id="stars" aria-label="可以拖动旋转的星光圣诞树"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="brand"><span class="brand-star" aria-hidden="true">✦</span><span>星光圣诞树</span></div>
+    <button class="quiet" id="camera-toggle" type="button" aria-pressed="false"><span aria-hidden="true">◉</span> 开启手势</button>
+  </header>
+  <main class="intro" aria-labelledby="wish">
+    <p class="greeting" lang="en">MERRY CHRISTMAS</p>
+    <h1 id="wish">把冬日的回忆<br>挂在星光里。</h1>
+    <p class="instruction">拖动旋转圣诞树，点一枚光球打开照片。</p>
+    <button class="gold-button" type="button" id="add-photos"><span aria-hidden="true">＋</span> 放入照片</button>
+    <input type="file" id="photo-files" accept="image/*" multiple hidden>
+    <div class="album" id="album" aria-label="照片预览"></div>
+  </main>
+  <footer class="controls" aria-label="场景控制">
+    <span id="scene-hint">拖动旋转 · 点击树身散开</span>
+    <div class="mode-switch">
+      <button type="button" data-shape="tree" aria-pressed="true"><span aria-hidden="true">1</span> 圣诞树</button>
+      <button type="button" data-shape="sky" aria-pressed="false"><span aria-hidden="true">2</span> 星海</button>
+      <button type="button" data-shape="wreath" aria-pressed="false"><span aria-hidden="true">3</span> 花环</button>
+      <button type="button" data-shape="heart" aria-pressed="false"><span aria-hidden="true">4</span> 爱心</button>
+    </div>
+  </footer>
+  <aside id="camera-panel" hidden>
+    <video id="webcam" autoplay playsinline muted></video>
+    <button id="stop-camera" aria-label="关闭摄像头" type="button">×</button>
+    <p id="camera-status" aria-live="polite"></p>
+  </aside>
+  <div class="hand-cursor" aria-hidden="true" hidden></div>
+  <div class="hand-cursor" aria-hidden="true" hidden></div>
+  <div class="toast" id="toast" role="status"></div>
+  <dialog id="photo-dialog" aria-label="照片预览">
+    <figure class="photo-frame">
+      <img id="full-photo" alt="">
+      <span class="holly top" aria-hidden="true"></span><span class="holly bottom" aria-hidden="true"></span>
+      <button type="button" id="close-photo" aria-label="关闭照片">×</button>
+    </figure>
+  </dialog>
+  <dialog id="camera-help" aria-labelledby="camera-title">
+    <h2 id="camera-title">用手势拨动星光</h2>
+    <p>任一只手收起拇指，伸出 1、2、3、4 根手指，依次切换圣诞树、星海、花环和爱心。也可以把双手一起放进镜头。</p>
+    <p>双手张开并拉开可放大，靠拢可缩小。单手张掌进入星海，握拳回到圣诞树。移动手掌旋转，对着光球捏合并停留可打开照片。</p>
+    <p class="camera-note">画面只在当前浏览器中用于识别手势。</p>
+    <p id="camera-error" role="status"></p>
+    <div class="dialog-actions"><button class="quiet" id="cancel-camera" type="button">返回</button><button class="gold-button" id="start-camera" type="button">开启摄像头</button></div>
+  </dialog>
+</body>
+</html>
